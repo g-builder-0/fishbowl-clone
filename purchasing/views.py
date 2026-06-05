@@ -70,7 +70,7 @@ class PurchaseOrderViewSet(viewsets.ModelViewSet):
                     notes=f"Received against PO {po.po_number}",
                 )
 
-            all_lines = po.lines.all()
+            all_lines = PurchaseOrderLine.objects.filter(purchase_order=po)
             fully_received = all(
                 line.quantity_received >= line.quantity_ordered
                 for line in all_lines
